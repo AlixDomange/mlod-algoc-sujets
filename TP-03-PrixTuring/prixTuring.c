@@ -15,17 +15,32 @@
 #include <string.h>
 #include <errno.h>
 #include <assert.h>
+#include "prixTuring.h"
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// MAIN
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int numberOfWinners(FILE *fichier) {
+    int count = 0;
+    char caractere;
 
-int main(int argc, char** argv)
-{
-	char filename[] = "turingWinners.csv";
-	char outputFilename[] = "out.csv";
+    while ((caractere = fgetc(fichier)) != EOF) {
+        if (caractere == '\n') {
+            count++;
+        }
+    }
 
-    // TODO
+    return count;
+}
 
-	return EXIT_SUCCESS;
+void readWinner(FILE *fichier, struct TuringWinner *winner) {
+    fscanf(fichier,"%i" ";", &winner->annee );
+    winner->nom = redStringFromFileUntil (fichier, ';');
+    winner->travaux=readStringFrilFileUntil(fichier, '\n');
+}
+
+TuringWinner *readWinners(FILE* fichier){
+    int capacite=numberOfWinners(fichier);
+    TuringWinner* listOfWinners = (TuringWinner*)malloc(capacite * sizeof(TuringWinner));
+    while(fgets(ligne,sizeof(ligne),fichier) != NULL){
+        readWinner(fichier,*listOfWinners);
+    }
+    return listOfWinners;
 }
