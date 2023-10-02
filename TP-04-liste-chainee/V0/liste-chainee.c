@@ -85,10 +85,9 @@ Liste ajoutFin_i(Element v, Liste l) {
 	while(l->suiv!=NULL){
 		l=l->suiv;
 	}
-	l->suiv=cell;
-	cell->val=v;
-	p->suiv=elem;
-	return l;
+	l->suiv=elem;
+	elem->suiv=NULL;
+	return elem;
 }
 
 // version recursive
@@ -105,23 +104,33 @@ bool equalsElement(Element e1, Element e2){
 // version itérative
 Liste cherche_i(Element v,Liste l) {
 	Liste p =l;
-	while(c!=NULL && !equalsElement(p->val,v)){
+	while(p!=NULL && !equalsElement(p->val,v)){
 		p=p->suiv;
 	}
-
-	return TODO;
+	return p;
 }
 
 // version récursive
 Liste cherche_r(Element v,Liste l) {
-	return TODO;
+	Liste p=l;
+	if (p!=NULL && !equalsElement(v, p->val)){
+		cherche_r(v, p->suiv);
+	}
+	return p;
 }
 
 // Retourne la liste modifiée dans la laquelle le premier élément ayant la valeur v a été supprimé
 // ne fait rien si aucun élément possède cette valeur
 // version itérative
 Liste retirePremier_i(Element v, Liste l) {
-	return TODO;
+	Liste p=l;
+	while(equalsElement(v,p->val)==false){
+		p=p->suiv;
+	}
+	
+	detruireElement(p->val);
+
+	return l;
 }
 
 
@@ -134,6 +143,3 @@ Liste retirePremier_r(Element v, Liste l) {
 void afficheEnvers_r(Liste l) {
 	TODO;
 }
-
-
-
