@@ -1,9 +1,12 @@
 #include <stdio.h>
+#include <stdint.h>
 
 typedef struct {
-    int annee;
+    uint16_t annee;
     char *nom;
     char *travaux;
 }TuringWinner;
 
-int numberOfWinners(FILE *fichier); 
+uint16_t numberOfWinners(FILE *fichier);
+TuringWinner *readWinners(FILE *file, uint16_t nWinners);
+void printWinners(TuringWinner *winners, FILE *file, uint16_t nWinners);
